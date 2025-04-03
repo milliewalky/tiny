@@ -1,0 +1,2 @@
+*.sh text=auto eol=lf
+third_party/SDL3/** eol=lf
