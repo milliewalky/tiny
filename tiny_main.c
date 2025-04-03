@@ -31,7 +31,7 @@ main(void)
   good = (renderer != 0);
  }
 
- SDL_Vertex vertices[3] =
+ SDL_Vertex vertices[] =
  {
 #define WidthFromVertex(v)  (((v) + 1.f) * (1280 / 2.f))
 #define HeightFromVertex(v) ((1.f - (v)) * (720 / 2.f))
@@ -40,16 +40,15 @@ main(void)
   {.position = {WidthFromVertex( .0f), HeightFromVertex( .5f)}, .color = {.r = 1.f, .g = .5f, .b = .2f, .a = 1.f}, .tex_coord = {0}},
  };
 
- int indices[3] = {0, 1, 2};
-
- SDL_SetRenderDrawColor(renderer, 51, 77, 77, 255);
- SDL_RenderGeometry(renderer, /* texture */ 0, vertices, 3, indices, 3);
+ int indices[] = {0, 1, 2};
 
  for(int quit = 0; quit == 0;)
  {
   SDL_SetRenderDrawColor(renderer, 51, 77, 77, 255);
   SDL_RenderClear(renderer);
-  SDL_RenderGeometry(renderer, /* texture */ 0, vertices, 3, indices, 3);
+
+#define ArrayCount(v) ((sizeof(v))/(sizeof(*(v))))
+  SDL_RenderGeometry(renderer, /* texture */ 0, vertices, ArrayCount(vertices), indices, ArrayCount(indices));
   SDL_RenderPresent(renderer);
 
   SDL_Event event;
